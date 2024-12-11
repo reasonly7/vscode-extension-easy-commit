@@ -16,8 +16,23 @@
       {
         "command": "easy-commit.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "easy-commit.validateCommitMessage",
+        "title": "Generate Message",
+        "category": "Source Control",
+        "icon": "$(azure)"
       }
-    ]
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "command": "easy-commit.validateCommitMessage",
+          "group": "navigation@99",
+          "when": "scmProvider == git"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",
