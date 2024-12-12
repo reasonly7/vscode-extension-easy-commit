@@ -1,26 +1,46 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
+  const disposable = vscode.commands.registerCommand(
+    "easy-commit.generateCommitMessage",
+    async () => {
+      // 获取 Git API
+      const gitExtension = vscode.extensions.getExtension("vscode.git");
+      if (!gitExtension) {
+        vscode.window.showErrorMessage("当前 VSCode 中没有 Git 插件！");
+        return;
+      }
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "easy-commit" is now active!!');
-	// debugger;
+      if (!gitExtension.isActive) {
+        await gitExtension.activate();
+      }
+      const gitApi = gitExtension.exports.getAPI(1);
+      const repositories = gitApi.repositories;
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('easy-commit.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from easy-commit!!');
-	});
+      if (repositories.length === 0) {
+        vscode.window.showErrorMessage("当前目录下没有 Git 仓库！");
+        return;
+      }
 
-	context.subscriptions.push(disposable);
+      const repo = repositories[0]; // 获取第一个仓库
+      const stagedFiles = repo.state.indexChanges; // 暂存区文件列表
+
+      if (stagedFiles.length === 0) {
+        vscode.window.showInformationMessage("暂存区中没有发现任何文件！");
+        return;
+      }
+      for (const file of stagedFiles) {
+        const patch = await repo.diffIndexWithHEAD(file.uri.fsPath);
+        vscode.window.showInformationMessage(patch);
+      }
+
+      context.subscriptions.push(disposable);
+    },
+  );
 }
 
 // This method is called when your extension is deactivated

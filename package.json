@@ -14,11 +14,7 @@
   "contributes": {
     "commands": [
       {
-        "command": "easy-commit.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "easy-commit.validateCommitMessage",
+        "command": "easy-commit.generateCommitMessage",
         "title": "Generate Message",
         "category": "Source Control",
         "icon": "$(azure)"
@@ -27,7 +23,7 @@
     "menus": {
       "scm/title": [
         {
-          "command": "easy-commit.validateCommitMessage",
+          "command": "easy-commit.generateCommitMessage",
           "group": "navigation@99",
           "when": "scmProvider == git"
         }
