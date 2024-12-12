@@ -47,8 +47,8 @@ export async function activate(context: vscode.ExtensionContext) {
       statusBar.text = "$(sync~spin) Loading..."; // 内置加载动画图标
 
       // 生产中不要这样写死敏感数据，这里仅作演示，下面的idkey要在演示完成后删除
-      const APP_ID = "bb67b75f5390408a9cc8883055d7bfac";
-      const API_KEY = "sk-03b88fa4b2b44f808251259fa067c7f3";
+      const APP_ID = "xxx";
+      const API_KEY = "xxx";
       const url = `https://dashscope.aliyuncs.com/api/v1/apps/${APP_ID}/completion`;
       statusBar.show();
       try {
