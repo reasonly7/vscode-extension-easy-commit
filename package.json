@@ -15,9 +15,9 @@
     "commands": [
       {
         "command": "easy-commit.generateCommitMessage",
-        "title": "Generate Message",
+        "title": "智能生成提交信息",
         "category": "Source Control",
-        "icon": "$(azure)"
+        "icon": "$(comment)"
       }
     ],
     "menus": {
