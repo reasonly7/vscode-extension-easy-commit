@@ -2,7 +2,7 @@
   "name": "easy-commit",
   "displayName": "easy-commit",
   "description": "generate git message with GPT.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reasonly7/vscode-extension-easy-commit.git"
